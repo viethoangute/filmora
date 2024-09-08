@@ -19,6 +19,16 @@
 *.iws
 .idea/
 
+# iOS-specific rules
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/engine/
+ios/Flutter/App.framework
+
+# CocoaPods
+Pods/
+Podfile.lock/
+
 # Visual Studio Code related
 .classpath
 .project
