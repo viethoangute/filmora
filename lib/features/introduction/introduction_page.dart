@@ -1,3 +1,4 @@
+import 'package:filmora/features/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -11,6 +12,8 @@ class IntroductionPage extends StatefulWidget {
 class _IntroductionPageState extends State<IntroductionPage> {
   final PageController _controller = PageController();
 
+  bool onLastPage = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +22,11 @@ class _IntroductionPageState extends State<IntroductionPage> {
         child: Stack(
           children: [
             PageView(
+              onPageChanged: (index) {
+                setState(() {
+                  onLastPage = index == 2;
+                });
+              },
               controller: _controller,
               children: const [
                 Column(
@@ -83,16 +91,76 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 controller: _controller,
                 count: 3,
                 effect: const WormEffect(
-                  dotWidth: 8,
-                  dotHeight: 8,
-                  dotColor: Colors.white,
-                  activeDotColor: Colors.blueAccent
+                    dotWidth: 8,
+                    dotHeight: 8,
+                    dotColor: Colors.white,
+                    activeDotColor: Colors.blueAccent),
+              ),
+            ),
+            Visibility(
+              visible: !onLastPage,
+              child: GestureDetector(
+                onTap: () {
+                  goToHomePage(context);
+                },
+                child: Container(
+                  alignment: const Alignment(-1, 1),
+                  margin: const EdgeInsets.only(left: 24),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Handjet',
+                        fontSize: 18),
+                  ),
                 ),
               ),
-            )
+            ),
+            onLastPage
+                ? GestureDetector(
+                    onTap: () {
+                      goToHomePage(context);
+                    },
+                    child: Container(
+                      alignment: const Alignment(1, 1),
+                      margin: const EdgeInsets.only(right: 24),
+                      child: const Text(
+                        'Start',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Handjet',
+                            fontSize: 18),
+                      ),
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      //do next
+                      _controller.nextPage(
+                          duration: const Duration(microseconds: 800),
+                          curve: Curves.easeIn);
+                    },
+                    child: Container(
+                      alignment: const Alignment(1, 1),
+                      margin: const EdgeInsets.only(right: 24),
+                      child: const Text(
+                        'Next',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Handjet',
+                            fontSize: 18),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
     );
+  }
+
+  void goToHomePage(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const HomePage();
+    }));
   }
 }

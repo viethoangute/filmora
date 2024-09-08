@@ -5,7 +5,7 @@ class Assets {
   static const String fontsHandjet = 'assets/fonts/handjet.ttf';
   static const String imagesAwaitingFilms = 'assets/images/awaiting_films.png';
   static const String imagesExploreFilms = 'assets/images/explore_films.png';
-  static const String imagesFilmoraLogo = 'assets/images/filmora_logo.png';
+  static const String imagesFilmoraLogoSmall = 'assets/images/filmora_logo.png';
   static const String imagesJourneyStart = 'assets/images/journey_start.png';
 
 }
